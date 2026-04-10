@@ -23,6 +23,8 @@ struct DataBlock
 
     // Allows lookup of symbol codes by lookup rather than tree traversal.
     std::vector<HuffmanCode> codebook{256};
+
+    std::vector<uint8_t> encoded_data;
 };
 
 #endif //DATA_BLOCK_H

@@ -13,4 +13,6 @@ add_executable(sequential_huffman_coder main.cpp
         build_block_tree.cpp
         build_block_tree.h
         build_codebook.cpp
-        build_codebook.h)
+        build_codebook.h
+        encode_block.cpp
+        encode_block.h)
