@@ -12,7 +12,7 @@
 constexpr int kMaxLeafNodes = 256;
 constexpr int kMaxTreeNodes = 511;
 
-void buildLocalTree(DataBlock &block)
+void buildTree(DataBlock &block)
 {
     // Create the Min-Heap
     std::priority_queue<

@@ -7,6 +7,6 @@
 
 #include "data_block.h"
 
-void buildLocalTree(DataBlock &block);
+void buildTree(DataBlock &block);
 
 #endif //BUILD_BLOCK_TREE_H
