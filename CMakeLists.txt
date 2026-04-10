@@ -8,4 +8,5 @@ add_executable(sequential_huffman_coder main.cpp
         build_histogram.cpp
         build_histogram.h
         chunked_file_reader.cpp
-        chunked_file_reader.h)
+        chunked_file_reader.h
+        data_block.h)

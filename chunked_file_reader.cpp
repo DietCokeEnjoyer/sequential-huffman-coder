@@ -8,6 +8,8 @@
 #include <vector>
 #include <string>
 
+#include "data_block.h"
+
 
 ChunkedFileReader::ChunkedFileReader(const std::string &filename) : bytes_read(0)
 {

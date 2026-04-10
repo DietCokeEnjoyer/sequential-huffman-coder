@@ -7,21 +7,11 @@
 
 #include <iostream>
 #include <fstream>
-#include <vector>
-#include <cstdint>
 #include <string>
 
-#include "huffman_node.h"
+#include "data_block.h"
 
 constexpr size_t CHUNK_SIZE = 1024 * 1024; // 1MB
-
-struct DataBlock
-{
-    std::vector<uint8_t> data;
-    std::vector<uint32_t> localHistogram;
-    std::vector<HuffmanNode> localTree;
-    int rootIndex = -1;
-};
 
 class ChunkedFileReader
 {
