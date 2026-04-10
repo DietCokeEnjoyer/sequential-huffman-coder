@@ -9,6 +9,8 @@
 
 #include "huffman_node.h"
 
+constexpr int kSymbolCount = 256;
+
 struct HuffmanCode {
     uint64_t bits = 0;   // The binary code
     uint8_t length = 0;  // How many bits make up the code
@@ -22,7 +24,7 @@ struct DataBlock
     int root_index = -1;
 
     // Allows lookup of symbol codes by lookup rather than tree traversal.
-    std::vector<HuffmanCode> codebook{256};
+    std::vector<HuffmanCode> codebook{kSymbolCount};
 
     std::vector<uint8_t> encoded_data;
 };
