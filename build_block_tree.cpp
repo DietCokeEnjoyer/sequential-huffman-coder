@@ -34,8 +34,8 @@ void buildLocalTree(DataBlock &block)
         {
             HuffmanNode leaf;
             leaf.frequency = block.local_histogram[i];
-            leaf.leftChild = -1; // -1 denotes no child
-            leaf.rightChild = -1;
+            leaf.left_child = -1; // -1 denotes no child
+            leaf.right_child = -1;
             leaf.symbol = static_cast<uint8_t>(i);
 
             // The index of this new node in our vector
@@ -71,8 +71,8 @@ void buildLocalTree(DataBlock &block)
         // Create a new internal parent node
         HuffmanNode parent;
         parent.frequency = left.second + right.second; // Combined frequency
-        parent.leftChild = left.first; // Point to left child's array index
-        parent.rightChild = right.first; // Point to right child's array index
+        parent.left_child = left.first; // Point to left child's array index
+        parent.right_child = right.first; // Point to right child's array index
         parent.symbol = 0; // Internal nodes don't have symbols
 
         // Add parent to the flattened tree

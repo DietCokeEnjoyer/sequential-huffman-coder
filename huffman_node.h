@@ -14,8 +14,8 @@
  */
 struct HuffmanNode {
     uint32_t frequency; // of the symbol in the file
-    int16_t leftChild;  // -1 if leaf
-    int16_t rightChild; // -1 if leaf
+    int16_t left_child;  // -1 if leaf
+    int16_t right_child; // -1 if leaf
     uint8_t symbol;     // Only valid if leaf
 };
 
