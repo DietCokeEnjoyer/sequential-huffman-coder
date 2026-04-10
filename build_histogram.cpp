@@ -5,13 +5,16 @@
 #include "build_histogram.h"
 
 #include <cstdint>
-#include <vector>
 
+#include "data_block.h"
 
-std::vector<uint32_t> buildHistogram(const std::vector<uint8_t>& data) {
-    std::vector<uint32_t> histogram(256, 0);
-    for (const uint8_t byte : data) {
-        histogram[byte]++;
+void buildHistogram(DataBlock& block) {
+
+    // Ensure the histogram is exactly 256 elements, all 0-initialized
+    block.local_histogram.assign(256, 0);
+
+    // Calculate frequencies
+    for (uint8_t byte : block.data) {
+        block.local_histogram[byte]++;
     }
-    return histogram;
 }
