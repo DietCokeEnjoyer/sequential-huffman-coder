@@ -44,7 +44,7 @@ int RunEncoder(const std::string& input_file_path, const std::string& output_fil
     }
 
     output_file.close();
-    std::cout << "Compression complete! File saved at "<< output_file_path << std::endl;
+    std::cout << "Compression complete, file saved at "<< output_file_path << std::endl;
 
     return 0;
 }

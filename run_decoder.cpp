@@ -11,7 +11,7 @@
 #include "data_block.h"
 #include "decode_block.h"
 
-// (Assume your DataBlock struct and buildLocalTree function are included here)
+constexpr int kHistogramSize = 256;
 
 int RunDecoder(const std::string &compressed_file, const std::string &output_file)
 {
@@ -36,26 +36,29 @@ int RunDecoder(const std::string &compressed_file, const std::string &output_fil
 
     std::cout << "Starting decompression...\n";
 
-    // Loop: As long as we can successfully read the first 4 bytes (original_size)
+    // Keep reading and decoding blocks as long as the 4-byte original size of each block can be read.
     while (in_file.read(reinterpret_cast<char *>(&original_size), sizeof(original_size)))
     {
-        // 1. Read the rest of the header
+        // Get the compressed size
         in_file.read(reinterpret_cast<char *>(&compressed_size), sizeof(compressed_size));
 
-        current_block.local_histogram.resize(256);
-        in_file.read(reinterpret_cast<char *>(current_block.local_histogram.data()), 256 * sizeof(uint32_t));
+        /* Load the compressed data into a DataBlock for decoding */
 
-        // 2. Read the compressed bits
+        // Allocate space for (if necessary) and read histogram.
+        current_block.local_histogram.resize(kHistogramSize);
+        in_file.read(reinterpret_cast<char *>(current_block.local_histogram.data()), kHistogramSize * sizeof(uint32_t));
+
+        // Allocate space for(if necessary) and read the compressed data.
         current_block.encoded_data.resize(compressed_size);
         in_file.read(reinterpret_cast<char *>(current_block.encoded_data.data()), compressed_size);
 
-        // 3. Rebuild the tree (using the EXACT same function from your encoder!)
+        // build the huffman tree from the histogram
         buildTree(current_block);
 
-        // 4. Decode the bits
+        // Decode the block using the reconstructed tree
         decodeBlock(current_block, original_size, decoded_data);
 
-        // 5. Write the uncompressed bytes to the new file
+        // write the decompressed data to the output.
         out_file.write(reinterpret_cast<const char *>(decoded_data.data()), original_size);
 
         block_counter++;
@@ -65,7 +68,7 @@ int RunDecoder(const std::string &compressed_file, const std::string &output_fil
     in_file.close();
     out_file.close();
 
-    std::cout << "Decompression complete!\n";
+    std::cout << "Decompression complete.\n";
 
     return 0;
 }

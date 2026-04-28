@@ -18,7 +18,7 @@ void PrintUsage(const char *program_name)
 
 int main(int argc, char *argv[])
 {
-    // If no arguments provided, print help and exit cleanly
+    // If no arguments provided, print help and exit
     if (argc < kMinArgs)
     {
         PrintUsage(argv[0]);
