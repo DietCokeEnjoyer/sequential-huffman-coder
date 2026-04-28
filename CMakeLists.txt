@@ -17,4 +17,6 @@ add_executable(sequential_huffman_coder main.cpp
         encode_block.cpp
         encode_block.h
         write_block_to_file.cpp
-        write_block_to_file.h)
+        write_block_to_file.h
+        decode_block.cpp
+        decode_block.h)
