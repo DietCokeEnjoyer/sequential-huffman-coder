@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 
-#include "run_decoder.h"
-#include "run_encoder.h"
+#include "sequential/run_decoder.h"
+#include "sequential/run_encoder.h"
 
 constexpr int kMinArgs = 2;
 constexpr int kEnDecodeArgs = 4;
