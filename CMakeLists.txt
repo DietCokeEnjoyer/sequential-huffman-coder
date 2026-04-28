@@ -3,7 +3,7 @@ project(sequential_huffman_coder)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(sequential_huffman_coder main.cpp
+add_executable(sequential_huffman_coder run_encoder.cpp
         huffman_node.h
         build_histogram.cpp
         build_histogram.h
@@ -19,4 +19,8 @@ add_executable(sequential_huffman_coder main.cpp
         write_block_to_file.cpp
         write_block_to_file.h
         decode_block.cpp
-        decode_block.h)
+        decode_block.h
+        run_decoder.cpp
+        main.cpp
+        run_decoder.h
+        run_encoder.h)

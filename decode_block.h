@@ -9,12 +9,7 @@
 
 #include "data_block.h"
 
-/**
- * 
- * @param block 
- * @param originalSize 
- * @param decodedData 
- */
-void decodeBlock(const DataBlock& block, uint32_t originalSize, std::vector<uint8_t>& decodedData);
+
+void decodeBlock(const DataBlock& block, uint32_t original_size, std::vector<uint8_t>& decoded_data);
 
 #endif //DECODE_BLOCK_H

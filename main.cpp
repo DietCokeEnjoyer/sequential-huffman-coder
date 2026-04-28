@@ -1,51 +1,61 @@
-#include <string>
-#include <fstream>
 #include <iostream>
+#include <string>
 
-#include "chunked_file_reader.h"
-#include "build_histogram.h"
-#include "build_block_tree.h"
-#include "build_codebook.h"
-#include "encode_block.h"
-#include "write_block_to_file.h"
+#include "run_decoder.h"
+#include "run_encoder.h"
 
-int main()
+constexpr int kMinArgs = 2;
+constexpr int kEnDecodeArgs = 4;
+
+void PrintUsage(const char *program_name)
 {
-    //TODO: command line args
-    std::string input_file_path = "input.txt";
-    std::string output_file_path = "compressed_data.huff";
+    std::cout << "Usage: " << program_name << " [OPTION] INPUT_FILE OUTPUT_FILE\n"
+            << "Options:\n"
+            << "  -e    Encode (compress) the INPUT_FILE to OUTPUT_FILE\n"
+            << "  -d    Decode (decompress) the INPUT_FILE to OUTPUT_FILE\n"
+            << "  -h    Show this help message and exit\n";
+}
 
-    ChunkedFileReader reader(input_file_path);
-
-    // Open the output file in binary mode
-    std::ofstream output_file(output_file_path, std::ios::binary);
-    if (!output_file)
+int main(int argc, char *argv[])
+{
+    // If no arguments provided, print help and exit cleanly
+    if (argc < kMinArgs)
     {
-        std::cerr << "Error: Could not open output file." << std::endl;
+        PrintUsage(argv[0]);
         return 1;
     }
 
-    DataBlock current_block;
-    int block_counter = 0;
+    std::string flag = argv[1];
 
-    std::cout << "Starting compression of " << input_file_path <<" ..." << std::endl;
-
-    // Process file one block at a time
-    while (reader.readNextBlock(current_block))
+    if (flag == "-h")
     {
-        buildHistogram(current_block);
-        buildTree(current_block);
-        buildCodebook(current_block);
-        encodeBlock(current_block);
-
-        writeBlockToFile(current_block, output_file);
-
-        block_counter++;
-        std::cout << "Processed block " << block_counter << std::endl;
+        PrintUsage(argv[0]);
+        return 0;
     }
 
-    output_file.close();
-    std::cout << "Compression complete! File saved at "<< output_file_path << std::endl;
+    // Encode and Decode need 4 args: file name, flag, in and out files.
+    if (argc != kEnDecodeArgs)
+    {
+        std::cerr << "Error: Invalid number of arguments.\n";
+        PrintUsage(argv[0]);
+        return 1;
+    }
 
-    return 0;
+    std::string input_file = argv[2];
+    std::string output_file = argv[3];
+
+    if (flag == "-e")
+    {
+        return RunEncoder(input_file, output_file);
+    }
+    else if (flag == "-d")
+    {
+        return RunDecoder(input_file, output_file);
+    }
+    else
+    {
+        std::cerr << "Error: Unknown option '" << flag << "'.\n";
+        PrintUsage(argv[0]);
+        return 1;
+    }
 }
